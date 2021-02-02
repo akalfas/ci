@@ -1,0 +1,37 @@
+version: 0.2
+run-as: root
+phases:
+  install:
+    commands:
+      - useradd tenant
+      - mkdir /home/tenant || true
+      - chmod a+rwx /home/tenant
+      - chown -R tenant:tenant /home/tenant
+      - apt-get update -y
+      - apt-get install -y iptables
+      - echo Lock via iptables on `date`
+      - iptables -A OUTPUT -d 169.254.169.254/32 -j DROP
+      - iptables -A OUTPUT -d 169.254.170.2/32 -j DROP
+      - iptables-save
+      - whoami
+      - env
+      - pwd
+      - dir=$(pwd) && cd .. && chmod -R a+rwx $dir && cd -
+  build:
+    run-as: tenant
+    commands:
+      - echo Build started on `date`
+      - mvn clean package
+  post_build:
+    commands:
+      - echo Restore iptables on `date`
+      - iptables -D OUTPUT -d 169.254.169.254/32 -j DROP
+      - iptables -D OUTPUT -d 169.254.170.2/32 -j DROP
+      - iptables-save
+artifacts:
+  files:
+    - target/*
+cache:
+  paths:
+    - '/home/tenant/.m2/**/*'
+
