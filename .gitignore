@@ -1,0 +1,56 @@
+# OS files
+.DS_Store
+*.storage
+# Java files
+*.class
+
+# Log files
+*.log
+logs
+
+# Maven
+target
+pom.xml.versionsBackup
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.exec
+*.war
+*.ear
+
+# IntelliJ IDEA
+*.iml
+.idea
+
+.test
+
+# Eclipse
+.project
+.settings
+.classpath
+test-output
+
+# Vim
+*.swp
+
+# Virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Misc
+*git.properties
+*.storage
+
+.env
+.token
+dependency-reduced-pom.xml
+secrets.yaml
+
+# Output files for running transaction-tx.sh
+transaction-test-*
+
+#release
+release.properties
+*.releaseBackup
